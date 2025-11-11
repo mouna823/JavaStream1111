@@ -243,9 +243,60 @@ Les exercices suivants utilisent la liste de clients fournie par `ClientData.get
 
 ## VII. Solutions des Exercices
 
-*(Les solutions seront fournies dans la section suivante.)*
+### Exercice 1
+List<Client> lyonClients = ClientData.getClients().stream()
+    .filter(c -> "Lyon".equals(c.getVille()))
+    .sorted(Comparator.comparing(Client::getChiffreAffaire).reversed())
+    .collect(Collectors.toList());
 
----
+System.out.println("Clients de Lyon (CA décroissant) :");
+lyonClients.forEach(System.out::println);
+
+### Exercice 2
+Map<Integer, String> idToNameMap = ClientData.getClients().stream()
+    .collect(Collectors.toMap(
+        Client::getIdClient, // Clé : idClient
+        Client::getNom       // Valeur : nom
+    ));
+
+System.out.println("\nMap ID -> Nom :");
+idToNameMap.forEach((id, nom) -> System.out.println("ID " + id + " : " + nom));
+
+### Exercice 3
+double caTotalParis = ClientData.getClients().stream()
+    .filter(c -> "Paris".equals(c.getVille()))
+    .mapToDouble(Client::getChiffreAffaire)
+    .sum();
+
+System.out.printf("\nChiffre d'affaires total des clients de Paris : %.2f\n", caTotalParis);
+
+### Exercice 4
+Map<String, Double> caMoyenParVille = ClientData.getClients().stream()
+    .collect(Collectors.groupingBy(
+        Client::getVille, // Clé : ville
+        Collectors.averagingDouble(Client::getChiffreAffaire)
+    ));
+
+System.out.println("\nCA Moyen par Ville :");
+caMoyenParVille.forEach((ville, moyenne) ->
+    System.out.printf("%s : %.2f\n", ville, moyenne)
+);
+
+### Exercice 5
+boolean caSup50k = ClientData.getClients().stream()
+    .allMatch(c -> c.getChiffreAffaire() > 50000);
+
+System.out.println("\nTous les clients ont-ils un CA > 50 000 ? " + caSup50k);
+
+if (caSup50k) {
+    List<String> nomsMajuscules = ClientData.getClients().stream()
+        .map(Client::getNom)
+        .map(String::toUpperCase)
+        .collect(Collectors.toList());
+
+    System.out.println("Noms en majuscules : " + nomsMajuscules);
+}
+
 
 ## VIII. Conclusion
 
