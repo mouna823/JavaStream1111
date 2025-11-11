@@ -136,4 +136,10 @@ public class ExempleStreamsEtudiant {
 //        System.out.printf("  Max: %.2f\n", stats.getMax());
 //        System.out.printf("  Somme: %.2f\n", stats.getSum());
     }
+
 }
+
+
+
+
+
