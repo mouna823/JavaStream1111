@@ -244,6 +244,7 @@ Les exercices suivants utilisent la liste de clients fournie par `ClientData.get
 ## VII. Solutions des Exercices
 
 ### Exercice 1
+```java
 List<Client> lyonClients = ClientData.getClients().stream()
     .filter(c -> "Lyon".equals(c.getVille()))
     .sorted(Comparator.comparing(Client::getChiffreAffaire).reversed())
@@ -251,8 +252,11 @@ List<Client> lyonClients = ClientData.getClients().stream()
 
 System.out.println("Clients de Lyon (CA décroissant) :");
 lyonClients.forEach(System.out::println);
+```
 
 ### Exercice 2
+```java
+
 Map<Integer, String> idToNameMap = ClientData.getClients().stream()
     .collect(Collectors.toMap(
         Client::getIdClient, // Clé : idClient
@@ -261,16 +265,21 @@ Map<Integer, String> idToNameMap = ClientData.getClients().stream()
 
 System.out.println("\nMap ID -> Nom :");
 idToNameMap.forEach((id, nom) -> System.out.println("ID " + id + " : " + nom));
+```
 
 ### Exercice 3
+```java
 double caTotalParis = ClientData.getClients().stream()
     .filter(c -> "Paris".equals(c.getVille()))
     .mapToDouble(Client::getChiffreAffaire)
     .sum();
 
 System.out.printf("\nChiffre d'affaires total des clients de Paris : %.2f\n", caTotalParis);
+```
 
 ### Exercice 4
+```java
+
 Map<String, Double> caMoyenParVille = ClientData.getClients().stream()
     .collect(Collectors.groupingBy(
         Client::getVille, // Clé : ville
@@ -281,8 +290,10 @@ System.out.println("\nCA Moyen par Ville :");
 caMoyenParVille.forEach((ville, moyenne) ->
     System.out.printf("%s : %.2f\n", ville, moyenne)
 );
+```
 
 ### Exercice 5
+```java
 boolean caSup50k = ClientData.getClients().stream()
     .allMatch(c -> c.getChiffreAffaire() > 50000);
 
@@ -296,7 +307,7 @@ if (caSup50k) {
 
     System.out.println("Noms en majuscules : " + nomsMajuscules);
 }
-
+```
 
 ## VIII. Conclusion
 
